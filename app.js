@@ -104,3 +104,44 @@
     setInterval(updateText, 3000);
 
 
+    // best plan
+      const buttons = document.querySelectorAll('.plan-btn');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active')); 
+      btn.classList.add('active'); 
+    });
+  });
+
+    const tabs = document.querySelectorAll("#speedTabs button");
+  const indicator = document.querySelector(".tab-indicator");
+
+  tabs.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      tabs.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      // Move red indicator to active button
+      const btnRect = btn.getBoundingClientRect();
+      const containerRect = btn.parentElement.getBoundingClientRect();
+      const offsetLeft = btnRect.left - containerRect.left;
+
+      indicator.style.width = `${btn.offsetWidth}px`;
+      indicator.style.left = `${offsetLeft}px`;
+    });
+  });
+
+  // Initialize on first load
+  window.addEventListener("load", () => {
+    const active = document.querySelector("#speedTabs button.active");
+    if (active) {
+      const rect = active.getBoundingClientRect();
+      const containerRect = active.parentElement.getBoundingClientRect();
+      const offsetLeft = rect.left - containerRect.left;
+      indicator.style.width = `${active.offsetWidth}px`;
+      indicator.style.left = `${offsetLeft}px`;
+    }
+  });
+
+
